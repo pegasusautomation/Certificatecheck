@@ -1,0 +1,22 @@
+1. create outlook ID
+raghavendra.ga9@outlook.com
+
+
+Windowserver01
+PW : $It?j3fbJ?)lU-E(3IvIZ6!5kXZCKIQo
+hostname : EC2AMAZ-ICFOB6O
+
+Send-MailMessage -From "devservicenow73@gmail.com" -To "ga.rag9@gmail.com" -Subject "test" -Body "Testing PS Email" -Credential "devservicenow73@gmail.com\uljmyygvkgdhlnmj" -SmtpServer "smtp.gmail.com" -Port 587
+
+
+ 	    $from = "devservicenow73@gmail.com" 
+            $to = "ga.rag9@gmail.com" 
+            $smtp = "smtp.gmail.com" 
+            $sub = "SERVER NOT ACTIVE ATERT" 
+            $body = "hi,  $vms  is not active"
+            $secpasswd = ConvertTo-SecureString "uljmyygvkgdhlnmj" -AsPlainText -Force
+            $mycreds = New-Object System.Management.Automation.PSCredential($from, $secpasswd)
+            Send-MailMessage -To $to -From $from -Subject $sub -Body $body -Port 587 -UseSsl -Credential $mycreds -SmtpServer $smtp -DeliveryNotificationOption Never -BodyAsHtml
+
+
+
