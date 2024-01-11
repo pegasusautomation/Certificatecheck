@@ -56,7 +56,7 @@ return(
           <thead>
               <tr>
               <th>Server Name</th>
-              <th>Thumbprint</th>
+              <th>Thumb Print</th>
               <th>Days to Expire</th>
               <th>Status</th>
               <th>Actions</th>

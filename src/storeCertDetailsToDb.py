@@ -16,7 +16,7 @@ data = json.loads(json_data)
 
 try: 
     conn = MongoClient("mongodb+srv://garag9:zFg03iXmJcfHGvZS@cluster0.vn3o0wy.mongodb.net/?retryWrites=true&w=majority") 
-    print("Connected successfully!!!") 
+    print("Connected To MongoDB successfully!!!") 
 except:   
     print("Could not connect to MongoDB") 
 
@@ -48,8 +48,8 @@ def get_certificate_expiration_days(thumbprint):
 # Get total days left for expiry     
 for item in data:
     daysToExpiration = get_certificate_expiration_days(item["thumbprint"])
-    if daysToExpiration == 45:
-        status = "Expired" 
+    if daysToExpiration == 2859:
+        status = "Expired"
     else:
         status = "Not Expired"
 
@@ -63,22 +63,22 @@ for item in data:
     # collection.insert_one(emp_rec1)
 
         # Code snippet to update records
-        thumpprints = {"$set":{"noofdays":item["thumbprint"]}}
-        days = [{"$set":{"noofdays":daysToExpiration}}]
-        certstatus = {"$set":{"status": status}}
+    thumpprints = {"$set":{"thumbprint":item["thumbprint"]}}
+    days = {"$set":{"noofdays":daysToExpiration}}
+    certstatus = {"$set":{"status": status}}
+    
+    if item["servername"] == "Mediaroomserver01":
+        myquery = {"servername":"Mediaroomserver01"}
+        collection.update_many(myquery,thumpprints)                
+        collection.update_many(myquery,days)
+        collection.update_many(myquery,certstatus)
+    elif item["servername"] == "Mediaroomserver02": 
+        myquery = {"servername":"Mediaroomserver02"}
+        collection.update_many(myquery,thumpprints)                
+        collection.update_many(myquery,days)
+        collection.update_many(myquery,certstatus)
             
-        if item["servername"] == "Mediaroomserver01":
-            myquery = {"servername":"Mediaroomserver01"}
-            collection.update_many(myquery,thumpprints)                
-            collection.update_many(myquery,days)
-            collection.update_many(myquery,certstatus)
-        elif item["servername"] == "Mediaroomserver02": 
-            myquery = {"servername":"Mediaroomserver02"}
-            collection.update_many(myquery,thumpprints)                
-            collection.update_many(myquery,days)
-            collection.update_many(myquery,certstatus)
-            
-    print("Your certificate for" + " Server: %s" %(item["thumbprint"]) + " will expire in : " + str(daysToExpiration) + " days")
+    print("Your certificate for" + " Server: %s" %(item["servername"]) + " will expire in : " + str(daysToExpiration) + " days")
             # if daysToExpiration == 34 or daysToExpiration == 1:
             #     send_notification(hostname,daysToExpiration,status)
             #     break
