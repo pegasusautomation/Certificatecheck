@@ -8,7 +8,9 @@ port = 443
 json_data = """
 [
     {"servername": "Mediaroomserver01", "thumbprint":"0563B8630D62D75ABBC8AB1E4BDFB5A899B24D43"},
-    {"servername": "Mediaroomserver02", "thumbprint":"A8985D3A65E5E5C4B2D7D66D40C6DD2FB19C5436"}
+    {"servername": "Mediaroomserver02", "thumbprint":"A8985D3A65E5E5C4B2D7D66D40C6DD2FB19C5436"},
+    {"servername": "Mediaroomserver03", "thumbprint":"CDD4EEAE6000AC7F40C3802C171E30148030C072"},
+    {"servername": "Mediaroomserver04", "thumbprint":"A43489159A520F0D93D032CCAF37E7FE20A8B419"}
 ]
 """
 # Convert JSON data to a Python object
@@ -48,7 +50,7 @@ def get_certificate_expiration_days(thumbprint):
 # Get total days left for expiry     
 for item in data:
     daysToExpiration = get_certificate_expiration_days(item["thumbprint"])
-    if daysToExpiration == 2859:
+    if daysToExpiration <= 30:
         status = "Expired"
     else:
         status = "Not Expired"
@@ -74,6 +76,16 @@ for item in data:
         collection.update_many(myquery,certstatus)
     elif item["servername"] == "Mediaroomserver02": 
         myquery = {"servername":"Mediaroomserver02"}
+        collection.update_many(myquery,thumpprints)                
+        collection.update_many(myquery,days)
+        collection.update_many(myquery,certstatus)
+    elif item["servername"] == "Mediaroomserver03": 
+        myquery = {"servername":"Mediaroomserver03"}
+        collection.update_many(myquery,thumpprints)                
+        collection.update_many(myquery,days)
+        collection.update_many(myquery,certstatus)
+    elif item["servername"] == "Mediaroomserver04": 
+        myquery = {"servername":"Mediaroomserver04"}
         collection.update_many(myquery,thumpprints)                
         collection.update_many(myquery,days)
         collection.update_many(myquery,certstatus)
