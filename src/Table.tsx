@@ -6,7 +6,8 @@ import { useEffect , useState} from 'react';
 // React table component
 function Table() {   
     const [certvalue, setValue] = useState([{
-        certname: "",
+        servername: "",
+        thumbprint:"",
         noofdays: "",
         status: ""
     }]);  
@@ -38,7 +39,8 @@ useEffect(() => {
     (info:any)=>{
         return(
             <tr>
-                <td>{info.certname}</td>
+                <td>{info.servername}</td>
+                <td>{info.thumbprint}</td>
                 <td>{info.noofdays}</td>
                 <td>{info.status}</td>
                 <td><Button variant="contained" onClick = {(e:any) => handleClick(e.preventDefault)} 
@@ -53,7 +55,8 @@ return(
       <table className="table table-striped">
           <thead>
               <tr>
-              <th>Certificate Name</th>
+              <th>Server Name</th>
+              <th>Thumbprint</th>
               <th>Days to Expire</th>
               <th>Status</th>
               <th>Actions</th>
