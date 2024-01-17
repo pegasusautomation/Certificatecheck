@@ -1,8 +1,6 @@
-import json
 from pymongo import MongoClient
 # from urllib.request import ssl, socket
 from datetime import datetime
-import subprocess
 port = 443
 import pandas as pd
 import smtplib
@@ -101,36 +99,3 @@ for item in data:
             # if daysToExpiration == 34 or daysToExpiration == 1:
             #     send_notification(hostname,daysToExpiration,status)
             #     break
-# Create a DataFrame
-data1 = {'Server Name': serverName_list,
-    'Thumb Print': thumbPrint_list,
-    'Days to Expire': noOfdays_list,
-    'Status': certStatus_list}
-df = pd.DataFrame(data1)
-
-html_style = df.to_html(index=False,bold_rows=True)
-styled_html_table = f""" <html><head><style ="padding:20px;"margin:20px;">table{{font-family: Arial,font-size:5vw;sans-serif;cellspacing=0;border-collapse: collapse;width: 10%;border: 1px solid #000000;}}th,td{{border: 1px solid #dddddd;   text-align: left;}}th {{ background-color: #f2f2f2;width:1%;}} td{{width: 1%;white-space:nowrap;}} tr{{ padding: 0;}}</style> </head> <body>{html_style}</body> </html> """
-# Set up your email credentials and message
-sender_email = 'raghavendra.ga9@outlook.com'
-sender_password = 'Rathna@123'
-receiver_email = 'raghavendra.ga9@outlook.com'
-
-subject = 'Certificate Status Alert'
-body = f'<br><b style ="color:red;">CERTIFICATE STATUS :</b><br><br>{styled_html_table}'
-
-# Create MIME object
-message = MIMEMultipart()
-message['From'] = sender_email
-message['To'] = receiver_email
-message['Subject'] = subject
-
-# Attach the HTML table to the email body
-message.attach(MIMEText(body, 'html'))
-
-# Connect to SMTP server and send the email
-with smtplib.SMTP('smtp.office365.com', 587) as server:
-    server.starttls()
-    server.login(sender_email, sender_password)
-
-# Send email
-    server.sendmail(sender_email, receiver_email, message.as_string())
