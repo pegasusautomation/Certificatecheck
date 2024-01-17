@@ -1,10 +1,11 @@
+
 import subprocess
 from flask import Flask,Response,jsonify, request
-
+ 
 app = Flask(__name__)
  
-script_file = "C:/cert-react-app/createCert.ps1"
-
+script_file ="C:\\Users\\Kothakota.Deepika_EX\\Certificatecheck\\createCert.ps1"
+ 
 @app.route("/")
 def createcert():
     try:
@@ -13,7 +14,8 @@ def createcert():
         return {"alert" : 2}
     except subprocess.CalledProcessError as e:
         print(f"Error executing PowerShell script: {e}")
-
+    
+ 
 # @app.route('/api/query', methods = ['POST'])
 # def get_query_from_react():
 #     data = "Certificate created successfully"
@@ -24,6 +26,6 @@ def createcert():
 #     except subprocess.CalledProcessError as e:
 #         print(f"Error executing PowerShell script: {e}")
 #     return "Hello"
-
+ 
 if __name__ == "__main__":
     app.run(debug=True)
